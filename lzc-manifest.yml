@@ -1,0 +1,59 @@
+application:
+  subdomain: opencloud
+  public_path:
+    - /
+  upstreams:
+    - location: /
+      backend: http://opencloud:9200/
+
+services:
+  opencloud:
+    # upstream: opencloudeu/opencloud-rolling:7.5.0
+    image: docker.1ms.run/opencloudeu/opencloud-rolling:7.5.0
+    user: "1000:1000"
+    environment:
+      - OC_URL=https://${LAZYCAT_APP_DOMAIN}
+      - OC_LOG_LEVEL=info
+      - OC_LOG_COLOR=false
+      - OC_LOG_PRETTY=false
+      - PROXY_TLS=false
+      - OC_INSECURE=false
+      - PROXY_ENABLE_BASIC_AUTH={{ .U.enable_basic_auth }}
+      - IDM_CREATE_DEMO_USERS=false
+      - IDM_ADMIN_PASSWORD={{ .U.initial_admin_password }}
+      - FRONTEND_ARCHIVER_MAX_SIZE=10000000000
+      - FRONTEND_CHECK_FOR_UPDATES=true
+      - PROXY_CSP_CONFIG_FILE_LOCATION=/etc/opencloud/csp.yaml
+      - OC_PASSWORD_POLICY_BANNED_PASSWORDS_LIST=banned-password-list.txt
+      - OC_SHARING_PUBLIC_SHARE_MUST_HAVE_PASSWORD=true
+      - OC_SHARING_PUBLIC_WRITEABLE_SHARE_MUST_HAVE_PASSWORD=false
+      - OC_PASSWORD_POLICY_DISABLED=false
+      - OC_PASSWORD_POLICY_MIN_CHARACTERS=8
+      - OC_PASSWORD_POLICY_MIN_LOWERCASE_CHARACTERS=1
+      - OC_PASSWORD_POLICY_MIN_UPPERCASE_CHARACTERS=1
+      - OC_PASSWORD_POLICY_MIN_DIGITS=1
+      - OC_PASSWORD_POLICY_MIN_SPECIAL_CHARACTERS=1
+      - OC_DEFAULT_LANGUAGE={{ .U.default_language }}
+    binds:
+      - /lzcapp/var/config:/etc/opencloud
+      - /lzcapp/var/data:/var/lib/opencloud
+    setup_script: |
+      mkdir -p /etc/opencloud /var/lib/opencloud/web/assets/apps
+      cp -f /lzcapp/pkg/content/config/opencloud/csp.yaml /etc/opencloud/csp.yaml
+      cp -f /lzcapp/pkg/content/config/opencloud/apps.yaml /etc/opencloud/apps.yaml
+      cp -f /lzcapp/pkg/content/config/opencloud/banned-password-list.txt /etc/opencloud/banned-password-list.txt
+      cp -R /lzcapp/pkg/content/config/opencloud/apps/. /var/lib/opencloud/web/assets/apps/
+      opencloud init || true
+      chown -R 1000:1000 /etc/opencloud /var/lib/opencloud
+    healthcheck:
+      test:
+        - CMD
+        - opencloud
+        - proxy
+        - health
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+
+usage: 使用设置向导生成的初始密码登录 admin 账号。该密码只在首次初始化时生效；后续请在 OpenCloud 用户设置中修改。

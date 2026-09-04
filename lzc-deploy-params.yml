@@ -1,0 +1,43 @@
+params:
+  - id: initial_admin_password
+    type: secret
+    name: Initial Admin Password
+    description: Initial password for the built-in admin account. It is used only on first startup and must be at least 8 characters.
+    default_value: $random(len=24)
+    optional: false
+
+  - id: default_language
+    type: string
+    name: Default Language
+    description: Default language for OpenCloud services and WebUI as an ISO 639-1 code, for example en, de, or fr.
+    default_value: en
+    optional: false
+
+  - id: enable_basic_auth
+    type: bool
+    name: Enable Basic Auth
+    description: Enable Basic authentication for WebDAV clients that do not support OpenID Connect.
+    default_value: "false"
+    optional: true
+
+locales:
+  zh:
+    initial_admin_password:
+      name: 初始管理员密码
+      description: 内置 admin 账号的初始密码，仅首次启动时生效，至少 8 个字符。
+    default_language:
+      name: 默认语言
+      description: OpenCloud 服务和 WebUI 的默认语言，使用 ISO 639-1 代码，例如 en、de 或 fr。
+    enable_basic_auth:
+      name: 启用 Basic Auth
+      description: 为不支持 OpenID Connect 的 WebDAV 客户端启用 Basic 认证。
+  en:
+    initial_admin_password:
+      name: Initial Admin Password
+      description: Initial password for the built-in admin account. It is used only on first startup and must be at least 8 characters.
+    default_language:
+      name: Default Language
+      description: Default language for OpenCloud services and WebUI as an ISO 639-1 code, for example en, de, or fr.
+    enable_basic_auth:
+      name: Enable Basic Auth
+      description: Enable Basic authentication for WebDAV clients that do not support OpenID Connect.

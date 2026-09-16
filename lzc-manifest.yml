@@ -5,11 +5,10 @@ application:
   upstreams:
     - location: /
       backend: http://opencloud:9200/
-
 services:
   opencloud:
-    # upstream: opencloudeu/opencloud-rolling:7.5.0
-    image: docker.1ms.run/opencloudeu/opencloud-rolling:7.5.0
+    # upstream: opencloudeu/opencloud-rolling:8.0.0
+    image: docker.1ms.run/opencloudeu/opencloud-rolling:8.0.0
     user: "1000:1000"
     environment:
       - OC_URL=https://${LAZYCAT_APP_DOMAIN}
@@ -55,5 +54,4 @@ services:
       timeout: 10s
       retries: 5
       start_period: 120s
-
 usage: 使用设置向导生成的初始密码登录 admin 账号。该密码只在首次初始化时生效；后续请在 OpenCloud 用户设置中修改。

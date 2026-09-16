@@ -1,20 +1,18 @@
 package: community.lazycat.app.opencloud
-version: 7.5.0
+version: 8.0.0
 name: OpenCloud
-description: 🌤️ OpenCloud is the open source platform for file management, sharing and collaboration. Simple and sovereign.
+description: "\U0001F324️ OpenCloud is the open source platform for file management, sharing and collaboration. Simple and sovereign."
 author: opencloud-eu
 license: GPL-3.0
 homepage: https://github.com/opencloud-eu/opencloud
 min_os_version: 1.5.0
-
 permissions:
   required:
     - net.internet
-
 locales:
   zh:
     name: OpenCloud
-    description: 🌤️ OpenCloud 是用于文件管理、共享与协作的开源平台，简洁且自主可控。
+    description: "\U0001F324️ OpenCloud 是用于文件管理、共享与协作的开源平台，简洁且自主可控。"
   en:
     name: OpenCloud
-    description: 🌤️ OpenCloud is the open source platform for file management, sharing and collaboration. Simple and sovereign.
+    description: "\U0001F324️ OpenCloud is the open source platform for file management, sharing and collaboration. Simple and sovereign."

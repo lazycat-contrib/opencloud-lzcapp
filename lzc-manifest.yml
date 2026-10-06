@@ -7,8 +7,8 @@ application:
       backend: http://opencloud:9200/
 services:
   opencloud:
-    # upstream: opencloudeu/opencloud-rolling:8.0.1
-    image: docker.1ms.run/opencloudeu/opencloud-rolling:8.0.1
+    # upstream: opencloudeu/opencloud-rolling:8.1.0
+    image: docker.1ms.run/opencloudeu/opencloud-rolling:8.1.0
     user: "1000:1000"
     environment:
       - OC_URL=https://${LAZYCAT_APP_DOMAIN}

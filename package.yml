@@ -3,7 +3,7 @@ version: 8.1.0
 name: OpenCloud
 description: "\U0001F324️ OpenCloud is the open source platform for file management, sharing and collaboration. Simple and sovereign."
 author: opencloud-eu
-license: GPL-3.0
+license: Apache-2.0
 homepage: https://github.com/opencloud-eu/opencloud
 min_os_version: 1.5.0
 permissions:
